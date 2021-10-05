@@ -67,7 +67,7 @@ export default {
           pageCounter += 1;
           axios
             .get(
-              `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=${pageCounter}&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
+              `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=${pageCounter}&api_key=DEMO_KEY`
             )
             .then((response) => {
               this.results.push(...response.data.photos);
@@ -77,7 +77,7 @@ export default {
       this.loading = true;
       axios
         .get(
-          `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=1&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=1&api_key=DEMO_KEY`
         )
         .then((response) => {
           this.results = response.data.photos;
@@ -92,7 +92,7 @@ export default {
       this.query = event.target.value;
       axios
         .get(
-          `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=1&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=1&api_key=DEMO_KEY`
         )
         .then((response) => {
           this.results = response.data.photos;
