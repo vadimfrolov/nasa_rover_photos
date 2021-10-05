@@ -15,10 +15,14 @@
       <div v-else>
         <div class="wrapper">
           <aside v-if="results" class="sidebar">
-            <select name="rovers" id="rover-select">
+            <select
+              name="rovers"
+              id="rover-select"
+              @change="switchSelect($event)"
+            >
               <option value="curiosity">Curiosity</option>
               <option value="opportunity">Opportunity</option>
-              <option value="spirit ">Spirit</option>
+              <option value="spirit">Spirit</option>
             </select>
           </aside>
           <div class="results" v-if="results">
@@ -37,7 +41,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      // query: "",
+      query: "curiosity",
       results: null,
       loading: false,
       errored: false,
@@ -54,7 +58,7 @@ export default {
           pageCounter += 1;
           axios
             .get(
-              `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=${pageCounter}&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
+              `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=${pageCounter}&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
             )
             .then((response) => {
               this.results.push(...response.data.photos);
@@ -64,7 +68,7 @@ export default {
       this.loading = true;
       axios
         .get(
-          `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=1&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
         )
         .then((response) => {
           this.results = response.data.photos;
@@ -74,6 +78,16 @@ export default {
           this.errored = true;
         })
         .finally(() => (this.loading = false));
+    },
+    switchSelect(event) {
+      this.query = event.target.value;
+      axios
+        .get(
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${this.query}/photos?sol=1000&page=1&api_key=NBotRn43dEjGTMX6aiFUOpajms3zNR0Vejec6sOl`
+        )
+        .then((response) => {
+          this.results = response.data.photos;
+        });
     },
   },
   name: "MarsPhotos",
