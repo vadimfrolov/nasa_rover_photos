@@ -1,14 +1,25 @@
 <template>
-  <div class="search">
+  <div>
+    <button v-on:click="getResult()" class="search-button">Get Photos</button>
     <div class="hello">
       <h1>{{ msg }}</h1>
     </div>
-    <button v-on:click="getResult()" class="search-button">Get Photos</button>
-    <div class="results" v-if="results">
-      <div v-for="result in results" v-bind:key="result.id">
-        <img v-bind:src="result.img_src" />
+    <section v-if="errored">
+      <p>
+        Something is wrong 😞 <br />
+        We are sorry
+      </p>
+    </section>
+    <section v-else>
+      <div v-if="loading">Loading...</div>
+      <div v-else>
+        <div class="results" v-if="results">
+          <div v-for="result in results" v-bind:key="result.id">
+            <img v-bind:src="result.img_src" />
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -18,18 +29,26 @@ export default {
   data() {
     return {
       // query: "",
-      results: "",
+      results: null,
+      loading: false,
+      errored: false,
     };
   },
   methods: {
     getResult() {
+      this.loading = true;
       axios
         .get(
           "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=1&api_key=DEMO_KEY"
         )
         .then((response) => {
           this.results = response.data.photos;
-        });
+        })
+        .catch((error) => {
+          console.log(error);
+          this.errored = true;
+        })
+        .finally(() => (this.loading = false));
     },
   },
   name: "MarsPhotos",
