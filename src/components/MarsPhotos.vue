@@ -13,9 +13,18 @@
     <section v-else>
       <div v-if="loading" class="lds-hourglass" />
       <div v-else>
-        <div class="results" v-if="results">
-          <div v-for="result in results" v-bind:key="result.id">
-            <img v-bind:src="result.img_src" />
+        <div class="wrapper">
+          <aside v-if="results" class="sidebar">
+            <select name="rovers" id="rover-select">
+              <option value="curiosity">Curiosity</option>
+              <option value="opportunity">Opportunity</option>
+              <option value="spirit ">Spirit</option>
+            </select>
+          </aside>
+          <div class="results" v-if="results">
+            <div v-for="result in results" v-bind:key="result.id">
+              <img v-bind:src="result.img_src" />
+            </div>
           </div>
         </div>
       </div>
@@ -76,16 +85,33 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.wrapper {
+  display: flex;
+}
 .results {
+  width: 72vw;
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+  justify-self: center;
 }
 .results img {
-  width: 31vw;
+  width: 23vw;
   height: auto;
   margin: 10px;
+}
+
+.sidebar {
+  background-color: #105bd8;
+  width: 25vw;
+  height: auto;
+}
+
+select {
+  width: 10vw;
+  padding: 5px;
+  margin-top: 10px;
 }
 
 .search-button {
