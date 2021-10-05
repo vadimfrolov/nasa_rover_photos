@@ -20,9 +20,13 @@
               id="rover-select"
               @change="switchSelect($event)"
             >
-              <option value="curiosity">Curiosity</option>
-              <option value="opportunity">Opportunity</option>
-              <option value="spirit">Spirit</option>
+              <option
+                v-for="option in options"
+                v-bind:value="option.value"
+                v-bind:key="option.id"
+              >
+                {{ option.text }}
+              </option>
             </select>
           </aside>
           <div class="results" v-if="results">
@@ -45,6 +49,11 @@ export default {
       results: null,
       loading: false,
       errored: false,
+      options: [
+        { id: 1, text: "Curiosity", value: "curiosity" },
+        { id: 2, text: "Opportunity", value: "opportunity" },
+        { id: 3, text: "Spirit", value: "spirit" },
+      ],
     };
   },
   methods: {
