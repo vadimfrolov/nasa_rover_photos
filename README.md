@@ -11,8 +11,7 @@ Mars pictures viewer made by rovers [NASA API](https://api.nasa.gov/)
 To start the project you need Node and Yarn
 
 ```bash
-yarn install
-yarn serve
+yarn install && yarn serve
 ```
 
 ## Tech stack
