@@ -4,6 +4,8 @@
 
 Mars pictures viewer made by rovers [NASA API](https://api.nasa.gov/)
 
+<img alt="image" src="nasa.gif"> </img>
+
 ## Quick start (development mode)
 
 To start the project you need Node and Yarn
